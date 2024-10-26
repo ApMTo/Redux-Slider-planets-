@@ -1,10 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import images from "../../DB/DB";
 
 function HomePage() {
+  useEffect(() => {
+    const updatePlanetsWidth = () => {
+      const width = window.innerWidth;
+      if (width <= 360) {
+        setPlanetsWidth(100);
+      } else if (width <= 530) {
+        setPlanetsWidth(150);
+      } else {
+        setPlanetsWidth(225);
+      }
+    };
+
+    updatePlanetsWidth();
+
+    window.addEventListener("resize", updatePlanetsWidth);
+
+    return () => {
+      window.removeEventListener("resize", updatePlanetsWidth);
+    };
+  }, []);
+
   const dispatch = useDispatch();
+  const [planetsWidth, setPlanetsWidth] = useState(0);
   const imagesData = useSelector((state) => state.images);
   const currentImage = useSelector((state) => state.currentImage);
   const animation = useSelector((state) => state.animation);
@@ -58,7 +80,7 @@ function HomePage() {
           </div>
           {imagesData.map((image, index) => {
             const style = {
-              transform: `rotate(${image.num}deg) translate(225px) rotate(0)`,
+              transform: `rotate(${image.num}deg) translate(${planetsWidth}px) rotate(0)`,
             };
             return (
               <div

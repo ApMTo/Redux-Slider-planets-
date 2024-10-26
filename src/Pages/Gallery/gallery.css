@@ -1,24 +1,31 @@
 .gallery {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: rgb(10, 18, 54);
   background-attachment: fixed;
   overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .gallery_body {
   display: flex;
+  flex-direction: row;
   height: 100%;
+  width: 90%;
+  max-width: 1200px;
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .planet_info {
   width: 30%;
-  height: 100%;
-  border-right: 2px solid black;
-  overflow-y: auto;
+  max-width: 400px;
   padding: 20px;
   box-sizing: border-box;
+  border-right: 2px solid black;
+  overflow-y: auto;
 }
 
 .planet_info img {
@@ -32,30 +39,24 @@
   color: white;
 }
 
-.allInfo {
-  ul {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    list-style-type: none;
-  }
-  li {
-    margin-top: 10px;
-    color: white;
-  }
+.allInfo ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  list-style-type: none;
 }
 
-.allInfo:last-child {
-  margin-bottom: 50px;
+.allInfo li {
+  margin-top: 10px;
+  color: white;
 }
 
 .planet_gallery {
   width: 70%;
-  height: 100%;
-  background-color: rgb(10, 18, 54);
-  overflow-y: auto;
   padding: 20px;
   box-sizing: border-box;
+  background-color: rgb(10, 18, 54);
+  overflow-y: auto;
 }
 
 .planet_gallery h2 {
@@ -78,6 +79,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  transition: opacity 0.3s ease;
 }
 
 .gallery_images img:hover {
@@ -88,11 +90,12 @@
   position: absolute;
   top: 10px;
   right: 30px;
-  i {
-    color: white;
-    cursor: pointer;
-    font-size: 24px;
-  }
+}
+
+.goBack i {
+  color: white;
+  cursor: pointer;
+  font-size: 24px;
 }
 
 .opened_image {
@@ -106,35 +109,79 @@
   justify-content: center;
   align-items: center;
   animation: opImage 0.6s alternate;
-  img {
-    width: 1200px;
-    height: 550px;
-    object-fit: cover;
-    border-radius: 15px;
-  }
+}
+.opened_image img {
+  width: 90%;
+  max-height: 550px;
+  object-fit: contain;
+  border-radius: 15px;
+  display: block;
+  margin: auto;
 }
 
 @keyframes opImage {
-    from {
-        opacity: 0;
-    }
-     to {
-        opacity: 1;
-     }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .opened_image_box {
-    width: 1200px;
-    height: 530px;
-    position: relative;
+  width: 90%;
+  max-width: 1200px;
+  position: relative;
 }
 
 .closeImage {
-    position: absolute;
-    top: -10px;
-    right: -7px;
-    z-index: 999;
-    color: white;
-    font-size: 25px;
-    cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px; 
+  z-index: 1000;
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+/* Media Queries */
+
+@media (max-width: 1024px) {
+  .gallery_body {
+    flex-direction: column;
+  }
+  .planet_info,
+  .planet_gallery {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .planet_info {
+    padding: 10px;
+    border-right: none;
+  }
+  .planet_gallery {
+    padding: 10px;
+  }
+  .gallery_images img {
+    width: 250px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .planet_info {
+    padding: 10px;
+  }
+  .gallery_images img {
+    width: 100%;
+    height: auto;
+  }
+  .closeImage,
+  .goBack i {
+    font-size: 20px;
+  }
 }
